@@ -15,10 +15,14 @@ repositories {
     mavenCentral()
 }
 
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib")
+    implementation("org.apache.kafka:kafka-clients:3.3.1")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
