@@ -1,5 +1,6 @@
 package com.amigos.kurionerzyclient.config
 
+import com.amigos.kurionerzyclient.infastructure.Question
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.springframework.beans.factory.annotation.Value
@@ -17,19 +18,18 @@ class KafkaConsumerConfig {
     @Value(value = "\${spring.kafka.bootstrap-servers}")
     private lateinit var bootstrapAddress: String
 
-    @Bean
-    fun consumerFactory(): ConsumerFactory<String, String> {
+    fun questionConsumerFactory(): ConsumerFactory<String, Question> {
         val props: MutableMap<String, Any> = HashMap()
         props[ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG] = bootstrapAddress
         props[ConsumerConfig.GROUP_ID_CONFIG] = "kurionerzy"
         props[ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG] = StringDeserializer::class.java
-        props[ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG] = StringDeserializer::class.java
+        props[ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG] = QuestionDeserializer::class.java
         return DefaultKafkaConsumerFactory(props)
     }
 
     @Bean
-    fun kafkaListenerContainerFactory(): ConcurrentKafkaListenerContainerFactory<String, String>? =
-        ConcurrentKafkaListenerContainerFactory<String, String>().also {
-            it.consumerFactory = consumerFactory()
+    fun questionContainerFactory(): ConcurrentKafkaListenerContainerFactory<String, Question>? =
+        ConcurrentKafkaListenerContainerFactory<String, Question>().also {
+            it.consumerFactory = questionConsumerFactory()
         }
 }

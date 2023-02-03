@@ -2,6 +2,7 @@ package com.amigos.kurionerzyserver.config
 
 import com.amigos.kurionerzyserver.CustomSerializer
 import com.amigos.kurionerzyserver.ResultsGame
+import com.amigos.kurionerzyserver.domain.Answer
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.common.serialization.StringDeserializer
@@ -26,24 +27,33 @@ class KafkaConsumerConfig {
     private lateinit var bootstrapAddress: String
 
     @Bean
-    fun consumerFactory(): ConsumerFactory<String, String> {
+    fun answerConsumerFactory(): ConsumerFactory<String, Answer> {
         val props: MutableMap<String, Any> = HashMap()
         props[ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG] = bootstrapAddress
         props[ConsumerConfig.GROUP_ID_CONFIG] = "kurionerzy"
         props[ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG] = StringDeserializer::class.java
-        props[ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG] = CustomSerializer::class.java
+        props[ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG] = AnswerDeserializer::class.java
         return DefaultKafkaConsumerFactory(props)
     }
 
     @Bean
-    fun kafkaListenerContainerFactory(): ConcurrentKafkaListenerContainerFactory<String, String>? {
-        val factory = ConcurrentKafkaListenerContainerFactory<String, String>()
-        factory.setConsumerFactory(consumerFactory())
+    fun answerContainerFactory(): ConcurrentKafkaListenerContainerFactory<String, Answer>? {
+        val factory = ConcurrentKafkaListenerContainerFactory<String, Answer>()
+        factory.setConsumerFactory(answerConsumerFactory())
         return factory
     }
 
     @Bean
     fun producerFactory(): ProducerFactory<String, ResultsGame> {
+        val configProps: MutableMap<String, Any> = HashMap()
+        configProps[ProducerConfig.BOOTSTRAP_SERVERS_CONFIG] = bootstrapAddress
+        configProps[ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG] = StringSerializer::class.java
+        configProps[ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG] = CustomSerializer::class.java
+        return DefaultKafkaProducerFactory(configProps)
+    }
+
+    @Bean
+    fun producerFactoryQuestions(): ProducerFactory<String, QuestionsConfig.Question> {
         val configProps: MutableMap<String, Any> = HashMap()
         configProps[ProducerConfig.BOOTSTRAP_SERVERS_CONFIG] = bootstrapAddress
         configProps[ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG] = StringSerializer::class.java
