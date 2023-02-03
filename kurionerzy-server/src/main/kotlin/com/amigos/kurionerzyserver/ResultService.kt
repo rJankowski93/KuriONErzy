@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component
 
 @Component
 class ResultService(
-    @Qualifier("kafkaTemplate")
     val kafkaTemplate: KafkaTemplate<String, ResultsGame>) {
 
     fun sendResult(resultsGames: ResultsGame) {

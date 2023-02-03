@@ -1,5 +1,6 @@
 package com.amigos.kurionerzyclient.config
 
+import com.amigos.kurionerzyclient.infastructure.GameResult
 import com.amigos.kurionerzyclient.infastructure.Question
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -13,6 +14,18 @@ class QuestionDeserializer : Deserializer<Question> {
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
         return try {
             objectMapper.readValue(String(data!!, Charset.defaultCharset()), Question::class.java)
+        } catch (e: IOException) {
+            throw RuntimeException("Serialize error")
+        }
+    }
+}
+
+class ResultDeserializer : Deserializer<GameResult> {
+    override fun deserialize(topic: String?, data: ByteArray?): GameResult {
+        val objectMapper = ObjectMapper()
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+        return try {
+            objectMapper.readValue(String(data!!, Charset.defaultCharset()), GameResult::class.java)
         } catch (e: IOException) {
             throw RuntimeException("Serialize error")
         }

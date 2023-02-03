@@ -21,4 +21,10 @@ class QuestionService(val questionsConfig: QuestionsConfig) {
         }
         return element
     }
+
+    fun isAnswerCorrect(id: String, answer: String) =
+        availableQuestions
+            .first { question -> question.id == id }
+            .correctAnswer == answer
+
 }

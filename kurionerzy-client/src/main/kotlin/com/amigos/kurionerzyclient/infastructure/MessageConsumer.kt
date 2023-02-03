@@ -24,9 +24,24 @@ class MessageConsumer : Consumer {
     @KafkaListener(
         topics = ["questions"],
         containerFactory = "questionContainerFactory"
-    ) // todo change groupId
+    )
     override fun subscribeQuestions(message: Question) {
         question = message
+    }
+
+    @KafkaListener(
+        topics = ["results"],
+        containerFactory = "resultContainerFactory"
+    )
+    override fun subscribeResults(message: GameResult) {
+        logger.info(
+            """
+            End of the game!
+            Your score is: ${message.score}.
+            Best score is: ${message.bestScore}.
+            Winner(s) is/are: ${message.bestPlayers}
+            """.trimIndent()
+        )
     }
 }
 
@@ -51,4 +66,13 @@ data class PossibleAnswers(
     val C: String,
     @JsonProperty("D")
     val D: String
+)
+
+data class GameResult(
+    @JsonProperty("score")
+    val score: String,
+    @JsonProperty("bestScore")
+    val bestScore: String,
+    @JsonProperty("bestPlayers")
+    val bestPlayers: Set<String>
 )

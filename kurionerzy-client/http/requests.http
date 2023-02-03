@@ -11,5 +11,6 @@ POST http://localhost:8032/game/answer
 Content-Type: application/json
 
 {
-  "id": "D"
+  "answer": "D",
+  "questionId": "1"
 }

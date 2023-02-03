@@ -39,9 +39,11 @@ fun UserRequest.toDomain() = User(
 )
 
 data class AnswerRequest(
-    @JsonProperty("id") val id: String
+    @JsonProperty("questionId") val questionId: String,
+    @JsonProperty("answer") val answer: String
 )
 
 fun AnswerRequest.toDomain() = Answer(
-    id = id
+    answer = answer,
+    questionId = questionId
 )
