@@ -3,31 +3,32 @@ package com.amigos.kurionerzyserver.consumers
 import com.amigos.kurionerzyserver.User
 import com.amigos.kurionerzyserver.producers.QuestionProducerService
 import org.springframework.kafka.annotation.KafkaListener
-import org.springframework.kafka.support.KafkaHeaders
-import org.springframework.messaging.handler.annotation.Header
-import org.springframework.messaging.handler.annotation.Payload
 import org.springframework.stereotype.Service
 
 @Service
 class UserConsumerService(
     val questionProducerService: QuestionProducerService
 ) {
+    var numberOfPlayers = 2
     var usersSet: MutableSet<User> = mutableSetOf()
-    var isGameStarted: Boolean = false
+    //var isGameStarted: Boolean = false
 
     @KafkaListener(topics = ["users"], groupId = "users-consumers")
     fun consumeUsers(user: User) {
-        println("USERS TOPIC")
-        if (!isGameReady()) {
+        if (!isRoomFull()) {
             usersSet.add(user)
-        } else if (!isGameStarted) {
-            print("Players limit exceeded. Starting the game!")
-            questionProducerService.startGame()
+            println("User added to game")
+            if (isRoomFull()) {
+                println("Game started")
+                questionProducerService.startGame()
+            }
         } else {
+            // dodać handlowanie resulta, wtedy resetować pokój
             print("Game already started")
         }
     }
-    private fun isGameReady(): Boolean = usersSet.size >= 2
+
+    private fun isRoomFull(): Boolean = usersSet.size > numberOfPlayers
 }
 
 
