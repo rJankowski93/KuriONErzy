@@ -15,17 +15,22 @@ class QuestionProducerService(
 ) {
     private val topicName = "questions"
     fun sendQuestion() {
-            kafkaTemplate.send(topicName, questionService.getNextQuestion())
+        kafkaTemplate.send(topicName, questionService.getNextQuestion())
     }
 
     fun startGame() {
+        var counter = 0
         questionService.createQuestionPoll()
         Timer().schedule(object : TimerTask() {
             override fun run() {
 //                stopWatch.stop()
                 println("Function in scheduleWithTimer executed with delay ")
                 sendQuestion()
-//                timer.cancel() // this
+                counter++
+                if (counter >= 15) {
+                    this.cancel()
+                }
+
             }
         }, 0, 5000)
     }
