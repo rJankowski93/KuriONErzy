@@ -8,5 +8,4 @@ class KurionerzyClientApplication
 
 fun main(args: Array<String>) {
     runApplication<KurionerzyClientApplication>(*args)
-    println("TEST")
 }
