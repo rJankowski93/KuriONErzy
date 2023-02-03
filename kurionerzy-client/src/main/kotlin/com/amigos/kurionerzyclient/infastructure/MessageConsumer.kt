@@ -58,13 +58,13 @@ data class Question(
 )
 
 data class PossibleAnswers(
-    @JsonProperty("A")
+    @JsonProperty("a")
     val A: String,
-    @JsonProperty("B")
+    @JsonProperty("b")
     val B: String,
-    @JsonProperty("C")
+    @JsonProperty("c")
     val C: String,
-    @JsonProperty("D")
+    @JsonProperty("d")
     val D: String
 )
 
