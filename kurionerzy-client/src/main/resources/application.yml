@@ -1,4 +1,8 @@
 server.port: 8032
+consumer:
+  group:
+    id: ${server.port}
+
 spring.kafka.bootstrap-servers: "localhost:9092"
 
 logging:

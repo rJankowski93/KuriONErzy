@@ -18,7 +18,6 @@ class MessageConsumer : Consumer {
 
     @KafkaListener(
         topics = ["questions"],
-        groupId = "kurionerzy",
         containerFactory = "questionContainerFactory"
     ) // todo change groupId
     override fun subscribeQuestions(message: Question) {

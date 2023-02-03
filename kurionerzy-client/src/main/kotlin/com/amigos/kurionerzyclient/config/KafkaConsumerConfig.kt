@@ -18,10 +18,13 @@ class KafkaConsumerConfig {
     @Value(value = "\${spring.kafka.bootstrap-servers}")
     private lateinit var bootstrapAddress: String
 
+    @Value(value = "\${consumer.group.id}")
+    private lateinit var consumerGroupId: String
+
     fun questionConsumerFactory(): ConsumerFactory<String, Question> {
         val props: MutableMap<String, Any> = HashMap()
         props[ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG] = bootstrapAddress
-        props[ConsumerConfig.GROUP_ID_CONFIG] = "kurionerzy"
+        props[ConsumerConfig.GROUP_ID_CONFIG] = consumerGroupId
         props[ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG] = StringDeserializer::class.java
         props[ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG] = QuestionDeserializer::class.java
         return DefaultKafkaConsumerFactory(props)
