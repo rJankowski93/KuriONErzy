@@ -22,8 +22,8 @@ class GameService(
 
     fun answerQuestion(answer: Answer) {
         producer.sendMessage(topic = "answers", key = userId, message = answer).also {
-            if (answer.id.equals(MessageConsumer.questions.last().correctAnswer, ignoreCase = true)) {
-                logger.info("Your answer ${answer.id} is correct!")
+            if (answer.answer.equals(MessageConsumer.questions.last().correctAnswer, ignoreCase = true)) {
+                logger.info("Your answer ${answer.answer} is correct!")
             } else {
                 logger.info("Unfortunately you are wrong. The correct answer is ${MessageConsumer.questions.last().correctAnswer}.")
             }
@@ -33,4 +33,7 @@ class GameService(
 
 data class User(val id: String)
 
-data class Answer(val id: String)
+data class Answer(
+    val answer: String,
+    val questionId: String
+)

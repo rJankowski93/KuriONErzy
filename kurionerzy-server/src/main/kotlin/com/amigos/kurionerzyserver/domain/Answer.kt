@@ -8,5 +8,5 @@ data class Answer(
     @JsonProperty("answer")
     val answer: String,
     @JsonProperty("questionId")
-    val questionId: String,
+    val questionId: String
 )
