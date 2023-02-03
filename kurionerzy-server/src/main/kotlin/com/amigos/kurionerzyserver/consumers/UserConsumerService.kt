@@ -28,7 +28,7 @@ class UserConsumerService(
         }
     }
 
-    private fun isRoomFull(): Boolean = usersSet.size > numberOfPlayers
+    private fun isRoomFull(): Boolean = usersSet.size >= numberOfPlayers
 }
 
 
