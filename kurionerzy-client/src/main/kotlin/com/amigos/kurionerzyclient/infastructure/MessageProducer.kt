@@ -20,10 +20,10 @@ class MessageProducer : Producer {
     }
 
     override fun sendMessage(topic: String, message: Any) {
-        producer.send(ProducerRecord("users", message))
+        producer.send(ProducerRecord(topic, message))
     }
 
     override fun sendMessage(topic: String, key: String, message: Any) {
-        producer.send(ProducerRecord("users", key, message))
+        producer.send(ProducerRecord(topic, key, message))
     }
 }
