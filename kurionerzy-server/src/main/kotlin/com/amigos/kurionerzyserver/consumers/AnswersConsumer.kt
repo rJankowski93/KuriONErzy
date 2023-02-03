@@ -32,11 +32,11 @@ class AnswersConsumer(
         incrementPointsForUser(answer.questionId, userId, correct)
         //zliczenie poprawnych odp i zapis w pamieci
         if (answers[userId]?.size!! >= 5) {
-            resultService.sendResult(ResultsGame(
-                winner = "janusz",
-                results = listOf(ResultGame(userId, getPointsForUser(userId)))
-                )
-            )
+            val results = ResultsGame(
+                answers.map { item ->
+                    ResultGame(item.key, getPointsForUser(item.key))
+                }, "janusz")
+            resultService.sendResult(results)
         }
     }
 
