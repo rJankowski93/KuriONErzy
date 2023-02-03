@@ -6,6 +6,24 @@ Content-Type: application/json
   "id": "Gracz 1"
 }
 
+### join the game
+POST http://localhost:8032/game/join
+Content-Type: application/json
+
+{
+  "id": "Gracz 2"
+}
+
+### join the game
+POST http://localhost:8032/game/join
+Content-Type: application/json
+
+{
+  "id": "Gracz 3"
+}
+
+
+
 ### answer question
 POST http://localhost:8032/game/answer
 Content-Type: application/json

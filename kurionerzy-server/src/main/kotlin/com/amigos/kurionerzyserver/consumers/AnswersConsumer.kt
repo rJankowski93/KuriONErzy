@@ -31,7 +31,7 @@ class AnswersConsumer(
         val correct = questionService.isAnswerCorrect(answer.questionId, answer.answer)
         incrementPointsForUser(answer.questionId, userId, correct)
         //zliczenie poprawnych odp i zapis w pamieci
-        if (answers[userId]?.size!! >= 10) {
+        if (answers[userId]?.size!! >= 5) {
             resultService.sendResult(ResultsGame(
                 winner = "janusz",
                 results = listOf(ResultGame(userId, 2))
