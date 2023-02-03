@@ -36,7 +36,7 @@ questions:
         D: 1500 100 900
       correctAnswer: B
     - id: nr_5
-      text: Na ile sposobów otworzysz skrytkę One;a w One Boxie = 4
+      text: Na ile sposobów otworzysz skrytkę One;a w One Boxie
       possibleAnswers:
         A: 1 (zaklęciem alohmora)
         B: 2 (zdalnie, kod sms)
