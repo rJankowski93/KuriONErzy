@@ -27,12 +27,12 @@ class QuestionProducerService(
                 println("Function in scheduleWithTimer executed with delay ")
                 sendQuestion()
                 counter++
-                if (counter >= 15) {
+                if (counter >= 5) {
                     this.cancel()
                 }
 
             }
-        }, 0, 5000)
+        }, 0, 20000)
     }
 
 
