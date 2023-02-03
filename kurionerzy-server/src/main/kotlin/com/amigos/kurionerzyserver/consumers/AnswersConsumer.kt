@@ -18,8 +18,8 @@ class AnswersConsumer(
 ) {
 
     data class Result(
-        private val questionId: String,
-        private val isAnswerCorrect: Boolean,
+        val questionId: String,
+        val isAnswerCorrect: Boolean,
     )
 
     private val answers = mutableMapOf<String, MutableList<Result>>()
@@ -34,7 +34,7 @@ class AnswersConsumer(
         if (answers[userId]?.size!! >= 5) {
             resultService.sendResult(ResultsGame(
                 winner = "janusz",
-                results = listOf(ResultGame(userId, 2))
+                results = listOf(ResultGame(userId, getPointsForUser(userId)))
                 )
             )
         }
@@ -47,4 +47,7 @@ class AnswersConsumer(
             answers.put(userId, mutableListOf())
         }
     }
+
+    private fun getPointsForUser(userId: String) =
+        answers[userId]?.filter(Result::isAnswerCorrect)?.size ?: 0
 }
