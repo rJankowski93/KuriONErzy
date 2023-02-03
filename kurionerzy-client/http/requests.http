@@ -1,0 +1,7 @@
+### join the game
+POST http://localhost:8032/game/join
+Content-Type: application/json
+
+{
+  "name": "Gracz 1"
+}

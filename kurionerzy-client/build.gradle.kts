@@ -19,6 +19,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.springframework:spring-web:6.0.4")
+    implementation("org.apache.kafka:kafka-clients:3.3.1")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

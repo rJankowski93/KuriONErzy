@@ -3,27 +3,18 @@ package com.amigos.kurionerzyserver
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
-import org.apache.kafka.clients.producer.KafkaProducer
-import org.apache.kafka.clients.producer.ProducerRecord
 import java.time.Duration
 
-
 @Controller
-class SimpleController {
+class SimpleController(val resultService: ResultService) {
 
     @GetMapping("/produce")
     fun produce(): String {
-
-        val producerProps = mapOf(
-            "bootstrap.servers" to "localhost:9092",
-            "key.serializer" to "org.apache.kafka.common.serialization.StringSerializer",
-            "value.serializer" to "org.apache.kafka.common.serialization.ByteArraySerializer",
-            "security.protocol" to "PLAINTEXT"
-        )
-
-        KafkaProducer<String, ByteArray>(producerProps).use {
-            it.send(ProducerRecord("test", "1", "Hello, world!".encodeToByteArray()))
-        }
+        // Test sendResult
+        val result1 = ResultGame("Pawel", 12)
+        val result2 = ResultGame("Michal", 15)
+        val results = ResultsGame(listOf(result1, result2), "Michal")
+        resultService.sendResult(results)
 
         return "example"
     }
