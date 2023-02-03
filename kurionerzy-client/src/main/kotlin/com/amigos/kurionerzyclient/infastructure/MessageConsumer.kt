@@ -6,14 +6,19 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Component
-import java.util.concurrent.ConcurrentLinkedQueue
 
 @Component
 class MessageConsumer : Consumer {
 
     companion object {
         val logger by logger()
-        val questions = ConcurrentLinkedQueue<Question>()
+        var question: Question? = null
+    }
+
+    fun getCurrentQuestion(): Question? {
+        val currQuestion = question
+        question = null
+        return currQuestion
     }
 
     @KafkaListener(
@@ -21,22 +26,7 @@ class MessageConsumer : Consumer {
         containerFactory = "questionContainerFactory"
     ) // todo change groupId
     override fun subscribeQuestions(message: Question) {
-        questions.add(message)
-        if (questions.size == 1) {
-            logger.info("First question: ${message.text}")
-        } else {
-            logger.info("Next question: ${message.text}")
-        }
-
-        logger.info(
-            """
-            Answers:
-                a) ${message.possibleAnswers.A},
-                b) ${message.possibleAnswers.B},
-                c) ${message.possibleAnswers.C},
-                d) ${message.possibleAnswers.D}
-            """.trimIndent()
-        )
+        question = message
     }
 }
 

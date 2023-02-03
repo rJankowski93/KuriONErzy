@@ -22,10 +22,10 @@ class GameService(
 
     fun answerQuestion(answer: Answer) {
         producer.sendMessage(topic = "answers", key = userId, message = answer).also {
-            if (answer.id.equals(MessageConsumer.questions.last().correctAnswer, ignoreCase = true)) {
+            if (answer.id.equals(MessageConsumer.question?.correctAnswer, ignoreCase = true)) {
                 logger.info("Your answer ${answer.id} is correct!")
             } else {
-                logger.info("Unfortunately you are wrong. The correct answer is ${MessageConsumer.questions.last().correctAnswer}.")
+                logger.info("Unfortunately you are wrong. The correct answer is ${MessageConsumer.question?.correctAnswer}.")
             }
         }
     }
