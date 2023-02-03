@@ -75,3 +75,11 @@ questions:
         C: 50
         D: 500
       correctAnswer: B
+    - id: nr_10
+      text: Ile APMów posiada One Kurier?
+      possibleAnswers:
+        A: poniżej 1000
+        B: 1000 - 1500
+        C: 1500 - 2000
+        D: powyżej 2000
+      correctAnswer: D
