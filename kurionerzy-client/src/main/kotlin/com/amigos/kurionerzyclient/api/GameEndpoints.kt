@@ -1,5 +1,6 @@
 package com.amigos.kurionerzyclient.api
 
+import com.amigos.kurionerzyclient.domain.Answer
 import com.amigos.kurionerzyclient.domain.GameService
 import com.amigos.kurionerzyclient.domain.User
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -20,6 +21,13 @@ class GameEndpoints(
     ) {
         gameService.joinGame(userRequest.toDomain())
     }
+
+    @PostMapping(value = ["/answer"])
+    fun answerQuestion(
+        @RequestBody answerRequest: AnswerRequest
+    ) {
+        gameService.answerQuestion(answerRequest.toDomain())
+    }
 }
 
 data class UserRequest(
@@ -27,5 +35,13 @@ data class UserRequest(
 )
 
 fun UserRequest.toDomain() = User(
+    id = id
+)
+
+data class AnswerRequest(
+    @JsonProperty("id") val id: String
+)
+
+fun AnswerRequest.toDomain() = Answer(
     id = id
 )
