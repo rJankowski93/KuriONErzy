@@ -14,8 +14,8 @@ class GameService(
 
     fun joinGame(user: User) =
         producer.sendMessage("users", user).also {
-            logger.info("Joining the game as ${user.name}")
+            logger.info("Joining the game as ${user.id}")
         }
 }
 
-data class User(val name: String)
+data class User(val id: String)
