@@ -1,3 +1,69 @@
 server.port: 8031
 
 spring.kafka.bootstrap-servers: "localhost:9092"
+questions:
+  questions:
+    - id: nr_1
+      text: W ilu miastach One Kurier nie jeździ?
+      possibleAnswers:
+        A: 970
+        B: 9
+        C: 1500 100 900
+        D: Co to One Kurier?
+      correctAnswer: A
+    - id: nr_2
+      text: Ile One Kurier ma rodzajów przekierowań?
+      possibleAnswers:
+        A: 5
+        B: 3
+        C: 1
+        D: 0
+      correctAnswer: B
+    - id: nr_3
+      text: Czym nie zapłacimy u One Kuriea przy płatności za pobraniu?
+      possibleAnswers:
+        A: Złotówkami
+        B: Kartą
+        C: Bilonem
+        D: Monetami 5 złotowymi
+      correctAnswer: B
+    - id: nr_4
+      text: Ile kodów pocztowych obsługuje One?
+      possibleAnswers:
+        A: Nie umiesz do tylu liczyć
+        B: 24473
+        C: Około 11,5
+        D: 1500 100 900
+      correctAnswer: B
+    - id: nr_5
+      text: Na ile sposobów otworzysz skrytkę One;a w One Boxie = 4
+      possibleAnswers:
+        A: 1 (zaklęciem alohmora)
+        B: 2 (zdalnie, kod sms)
+        C: 3 (zdalnie, zaklęciem alohmora, siłą)
+        D: 4 (zdalnie, QR code, kod sms, siłą)
+      correctAnswer: D
+    - id: nr_6
+      text: Ile skrytek ma standardowy One box?
+      possibleAnswers:
+        A: 50
+        B: 65
+        C: 85
+        D: 100
+      correctAnswer: C
+    - id: nr_7
+      text: Jak się nazywa narzędzie na którym pracują kurierzy?
+      possibleAnswers:
+        A: Lew
+        B: Kaczka
+        C: Zebra
+        D: Gęś
+      correctAnswer: C
+    - id: nr_8
+      text: Czym jest, robaczek bohater one kuriera?
+      possibleAnswers:
+        A: Świetlikiem
+        B: Biedronką
+        C: Mrówką
+        D: Stonką
+      correctAnswer: A
