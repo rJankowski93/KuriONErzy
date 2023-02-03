@@ -2,6 +2,7 @@ package com.amigos.kurionerzyserver.producers
 
 import com.amigos.kurionerzyserver.QuestionService
 import com.amigos.kurionerzyserver.config.QuestionsConfig
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Service
 import java.util.*
@@ -9,21 +10,21 @@ import java.util.*
 @Service
 class QuestionProducerService(
     val questionService: QuestionService,
+    @Qualifier("kafkaTemplateQuestions")
     val kafkaTemplate: KafkaTemplate<String, QuestionsConfig.Question>
 ) {
     private val topicName = "questions"
-    fun sendQuestions() {
-        for (i in 1..5) {
+    fun sendQuestion() {
             kafkaTemplate.send(topicName, questionService.getNextQuestion())
-        }
     }
 
     fun startGame() {
+        questionService.createQuestionPoll()
         Timer().schedule(object : TimerTask() {
             override fun run() {
 //                stopWatch.stop()
                 println("Function in scheduleWithTimer executed with delay ")
-                sendQuestions()
+                sendQuestion()
 //                timer.cancel() // this
             }
         }, 0, 5000)

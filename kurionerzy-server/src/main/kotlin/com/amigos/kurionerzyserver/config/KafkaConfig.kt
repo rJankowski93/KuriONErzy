@@ -64,4 +64,9 @@ class KafkaConsumerConfig {
     fun kafkaTemplate(): KafkaTemplate<String, ResultsGame> {
         return KafkaTemplate(producerFactory())
     }
+
+    @Bean
+    fun kafkaTemplateQuestions(): KafkaTemplate<String, QuestionsConfig.Question> {
+        return KafkaTemplate(producerFactoryQuestions())
+    }
 }
