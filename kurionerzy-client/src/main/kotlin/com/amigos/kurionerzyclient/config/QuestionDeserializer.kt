@@ -17,3 +17,4 @@ class QuestionDeserializer : Deserializer<Question> {
             throw RuntimeException("Serialize error")
         }
     }
+}
