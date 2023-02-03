@@ -2,6 +2,7 @@ package com.amigos.kurionerzyclient.api
 
 import com.amigos.kurionerzyclient.domain.GameService
 import com.amigos.kurionerzyclient.domain.User
+import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -21,8 +22,10 @@ class GameEndpoints(
     }
 }
 
-data class UserRequest(val name: String)
+data class UserRequest(
+    @JsonProperty("id") val id: String
+)
 
 fun UserRequest.toDomain() = User(
-    name = name
+    id = id
 )

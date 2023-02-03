@@ -12,7 +12,7 @@ class MessageProducer : Producer {
         private val producerProps = mapOf(
             "bootstrap.servers" to "localhost:9092",
             "key.serializer" to "org.apache.kafka.common.serialization.StringSerializer",
-            "value.serializer" to "org.apache.kafka.common.serialization.ByteArraySerializer",
+            "value.serializer" to "com.amigos.kurionerzyclient.infastructure.CustomSerializer",
             "security.protocol" to "PLAINTEXT"
         )
 
