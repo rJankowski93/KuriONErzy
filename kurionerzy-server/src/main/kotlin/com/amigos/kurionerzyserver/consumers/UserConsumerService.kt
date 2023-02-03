@@ -16,7 +16,8 @@ class UserConsumerService(
     var isGameStarted: Boolean = false
 
     @KafkaListener(topics = ["users"], groupId = "users-consumers")
-    fun consumeUsers(@Payload user: User, @Header(KafkaHeaders.RECEIVED_KEY) key: String) {
+    fun consumeUsers(user: User) {
+        println("USERS TOPIC")
         if (!isGameReady()) {
             usersSet.add(user)
         } else if (!isGameStarted) {

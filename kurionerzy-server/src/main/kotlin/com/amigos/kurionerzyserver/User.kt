@@ -1,5 +1,7 @@
 package com.amigos.kurionerzyserver
 
-class User(val id: String) {
+import com.fasterxml.jackson.annotation.JsonProperty
+
+data class User(@JsonProperty("id") val id: String) {
 
 }
