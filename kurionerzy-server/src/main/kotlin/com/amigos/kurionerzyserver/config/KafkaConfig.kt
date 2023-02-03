@@ -52,6 +52,15 @@ class KafkaConsumerConfig {
     }
 
     @Bean
+    fun producerFactoryQuestions(): ProducerFactory<String, QuestionsConfig.Question> {
+        val configProps: MutableMap<String, Any> = HashMap()
+        configProps[ProducerConfig.BOOTSTRAP_SERVERS_CONFIG] = bootstrapAddress
+        configProps[ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG] = StringSerializer::class.java
+        configProps[ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG] = CustomSerializer::class.java
+        return DefaultKafkaProducerFactory(configProps)
+    }
+
+    @Bean
     fun kafkaTemplate(): KafkaTemplate<String, ResultsGame> {
         return KafkaTemplate(producerFactory())
     }

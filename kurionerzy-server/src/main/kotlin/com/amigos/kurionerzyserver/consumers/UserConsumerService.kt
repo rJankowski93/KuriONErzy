@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service
 class UserConsumerService(
     val questionProducerService: QuestionProducerService
 ) {
-
     var usersSet: MutableSet<User> = mutableSetOf()
     var isGameStarted: Boolean = false
 

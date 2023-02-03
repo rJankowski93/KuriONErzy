@@ -1,21 +1,20 @@
 package com.amigos.kurionerzyserver.producers
 
-import com.amigos.kurionerzyserver.consumers.UserConsumerService
+import com.amigos.kurionerzyserver.QuestionService
+import com.amigos.kurionerzyserver.config.QuestionsConfig
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Service
 import java.util.*
-import kotlin.concurrent.timer
 
 @Service
 class QuestionProducerService(
-    // dependencja od damiana
-    val usersService: UserConsumerService,
-    val kafkaTemplate: KafkaTemplate<String, String> // Question zamiast String
+    val questionService: QuestionService,
+    val kafkaTemplate: KafkaTemplate<String, QuestionsConfig.Question>
 ) {
-
-    fun sendQuestions(question: String) { // Question od Damiana
+    private val topicName = "questions"
+    fun sendQuestions() {
         for (i in 1..5) {
-            kafkaTemplate.send("questions", question)
+            kafkaTemplate.send(topicName, questionService.getNextQuestion())
         }
     }
 
@@ -24,7 +23,7 @@ class QuestionProducerService(
             override fun run() {
 //                stopWatch.stop()
                 println("Function in scheduleWithTimer executed with delay ")
-                sendQuestions("TEST_QUESTION") // od Damiana
+                sendQuestions()
 //                timer.cancel() // this
             }
         }, 0, 5000)
