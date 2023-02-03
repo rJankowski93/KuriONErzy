@@ -22,6 +22,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
     implementation("org.apache.kafka:kafka-clients:3.3.1")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.kafka:spring-kafka:3.0.0")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
