@@ -1,10 +1,8 @@
 package com.amigos.kurionerzyserver
 
-import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.clients.producer.KafkaProducer
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.springframework.stereotype.Service
-import java.time.Duration
 
 @Service
 class QuestionProducerService(
@@ -12,6 +10,7 @@ class QuestionProducerService(
     val usersService: UserConsumerService
 ) {
     private final val topicName = "questions"
+
     private final val producerProps = mapOf(
         "bootstrap.servers" to "localhost:9092",
         "key.serializer" to "org.apache.kafka.common.serialization.StringSerializer",
@@ -19,11 +18,20 @@ class QuestionProducerService(
         "security.protocol" to "PLAINTEXT"
     )
 
-    val questionsProducerTopic = KafkaProducer<String, ByteArray>(producerProps).use {
-        it.send(ProducerRecord(topicName, "1", "Hello, world!".encodeToByteArray()))
-    }
+    val questionsProducerTopic = KafkaProducer<String, ByteArray>(producerProps)
 
+    //Adnotacja springowa
     fun sendQuestion() {
-
+        //dependencja od damiana.losujPytanie()
+        //zwraca pytanie
+        questionsProducerTopic.use {
+            it.send(
+                ProducerRecord(
+                    topicName,
+                    "question", // numer pytania od damiana albo null
+                    "QuestionBody".encodeToByteArray()
+                )
+            ) // serializacja do Question
+        }
     }
 }
