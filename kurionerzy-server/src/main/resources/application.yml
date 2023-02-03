@@ -31,7 +31,7 @@ questions:
       text: Ile kodów pocztowych obsługuje One?
       possibleAnswers:
         A: Nie umiesz do tylu liczyć
-        B: 24473
+        B: 11665
         C: Około 11,5
         D: 1500 100 900
       correctAnswer: B
@@ -60,10 +60,18 @@ questions:
         D: Gęś
       correctAnswer: C
     - id: nr_8
-      text: Czym jest, robaczek bohater one kuriera?
+      text: Czym jest robaczek bohater One Kuriera?
       possibleAnswers:
         A: Świetlikiem
         B: Biedronką
         C: Mrówką
         D: Stonką
       correctAnswer: A
+    - id: nr_9
+      text: Ilu mamy własnych kurierów w One Kurierze?
+      possibleAnswers:
+        A: 100
+        B: 200
+        C: 50
+        D: 500
+      correctAnswer: B
