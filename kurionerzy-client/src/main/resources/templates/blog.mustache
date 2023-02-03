@@ -1,16 +1,24 @@
 {{> header}}
 <img src="https://i.iplsc.com/hubert-urbanski/000DE38P49Y1ABPP-C122-F4.jpg" width="300" height="200">
 
-<h1>{{message}}</h1>
+{{#message}}
+    <h1>{{message}}</h1>
+{{/message}}
+
+{{#results}}
+    <img src="https://st.depositphotos.com/1724125/1480/v/950/depositphotos_14804395-stock-illustration-delivery-chicken.jpg" />
+    <h2>{{results}}</h2>
+
+{{/results}}
 
 
 
 {{#question}}
     <h3>{{question.text}}</h3>
-    <h3><a href="http://localhost:8032/A">A: {{question.possibleAnswers.A}}</a></h3>
-    <h3><a href="http://localhost:8032/B">B: {{question.possibleAnswers.B}}</a></h3>
-    <h3><a href="http://localhost:8032/C">C: {{question.possibleAnswers.C}}</a></h3>
-    <h3><a href="http://localhost:8032/D">D: {{question.possibleAnswers.D}}</a></h3>
+    <h3><a href="http://localhost:8032/answers/A">A: {{question.possibleAnswers.A}}</a></h3>
+    <h3><a href="http://localhost:8032/answers/B">B: {{question.possibleAnswers.B}}</a></h3>
+    <h3><a href="http://localhost:8032/answers/C">C: {{question.possibleAnswers.C}}</a></h3>
+    <h3><a href="http://localhost:8032/answers/D">D: {{question.possibleAnswers.D}}</a></h3>
 {{/question}}
 
 

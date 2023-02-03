@@ -1,9 +1,8 @@
 package com.amigos.kurionerzyserver.consumers
 
+import com.amigos.kurionerzyserver.GameResult
 import com.amigos.kurionerzyserver.QuestionService
-import com.amigos.kurionerzyserver.ResultGame
 import com.amigos.kurionerzyserver.ResultService
-import com.amigos.kurionerzyserver.ResultsGame
 import com.amigos.kurionerzyserver.domain.Answer
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.support.KafkaHeaders
@@ -31,12 +30,13 @@ class AnswersConsumer(
         val correct = questionService.isAnswerCorrect(answer.questionId, answer.answer)
         incrementPointsForUser(answer.questionId, userId, correct)
         //zliczenie poprawnych odp i zapis w pamieci
-        if (answers[userId]?.size!! >= 5) {
-            val results = ResultsGame(
-                answers.map { item ->
-                    ResultGame(item.key, getPointsForUser(item.key))
-                }, "janusz")
-            resultService.sendResult(results)
+        if (answers[userId]?.size!! >= 3) {
+            val result = GameResult(
+                getPointsForUser(userId).toString(),
+                getBestScore().second.toString(),
+                setOf(getBestScore().first.toString()),
+            )
+            resultService.sendResult(result)
         }
     }
 
@@ -50,4 +50,10 @@ class AnswersConsumer(
 
     private fun getPointsForUser(userId: String) =
         answers[userId]?.filter(Result::isAnswerCorrect)?.size ?: 0
+
+    private fun getBestScore(): Pair<String, Int> =
+        answers.map {
+            it.key to it.value.sumBy { if (it.isAnswerCorrect) 1 else 0 }
+        }.sortedBy { it.second }.first()
+
 }

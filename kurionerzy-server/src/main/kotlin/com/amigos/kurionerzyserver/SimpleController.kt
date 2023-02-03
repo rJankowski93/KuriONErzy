@@ -11,10 +11,10 @@ class SimpleController(val resultService: ResultService) {
     @GetMapping("/produce")
     fun produce(): String {
         // Test sendResult
-        val result1 = ResultGame("Pawel", 12)
-        val result2 = ResultGame("Michal", 15)
-        val results = ResultsGame(listOf(result1, result2), "Michal")
-        resultService.sendResult(results)
+//        val result1 = ResultGame("Pawel", 12)
+//        val result2 = ResultGame("Michal", 15)
+//        val results = ResultsGame(listOf(result1, result2), "Michal")
+//        resultService.sendResult(results)
 
         return "example"
     }

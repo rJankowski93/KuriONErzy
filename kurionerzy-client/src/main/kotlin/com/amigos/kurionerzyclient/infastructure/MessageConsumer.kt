@@ -1,6 +1,7 @@
 package com.amigos.kurionerzyclient.infastructure
 
 import com.amigos.kurionerzyclient.domain.Consumer
+import com.amigos.kurionerzyclient.front.HtmlController
 import com.amigos.kurionerzyclient.logger
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -34,14 +35,17 @@ class MessageConsumer : Consumer {
         containerFactory = "resultContainerFactory"
     )
     override fun subscribeResults(message: GameResult) {
-        logger.info(
-            """
+        val result = """
             End of the game!
             Your score is: ${message.score}.
             Best score is: ${message.bestScore}.
             Winner(s) is/are: ${message.bestPlayers}
-            """.trimIndent()
+            """
+        logger.info(
+            result.trimIndent()
         )
+        HtmlController.results = result.trimIndent()
+
     }
 }
 

@@ -1,7 +1,7 @@
 package com.amigos.kurionerzyserver.config
 
 import com.amigos.kurionerzyserver.CustomSerializer
-import com.amigos.kurionerzyserver.ResultsGame
+import com.amigos.kurionerzyserver.GameResult
 import com.amigos.kurionerzyserver.domain.Answer
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.producer.ProducerConfig
@@ -44,7 +44,7 @@ class KafkaConsumerConfig {
     }
 
     @Bean
-    fun producerFactory(): ProducerFactory<String, ResultsGame> {
+    fun producerFactory(): ProducerFactory<String, GameResult> {
         val configProps: MutableMap<String, Any> = HashMap()
         configProps[ProducerConfig.BOOTSTRAP_SERVERS_CONFIG] = bootstrapAddress
         configProps[ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG] = StringSerializer::class.java
@@ -62,7 +62,7 @@ class KafkaConsumerConfig {
     }
 
     @Bean
-    fun kafkaTemplate(): KafkaTemplate<String, ResultsGame> {
+    fun kafkaTemplate(): KafkaTemplate<String, GameResult> {
         return KafkaTemplate(producerFactory())
     }
 

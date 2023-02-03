@@ -2,6 +2,7 @@ package com.amigos.kurionerzyclient.front
 
 import com.amigos.kurionerzyclient.domain.Answer
 import com.amigos.kurionerzyclient.domain.GameService
+import com.amigos.kurionerzyclient.infastructure.GameResult
 import com.amigos.kurionerzyclient.infastructure.MessageConsumer
 import com.amigos.kurionerzyclient.infastructure.Question
 import org.springframework.stereotype.Controller
@@ -15,13 +16,22 @@ class HtmlController(val messageConsumer: MessageConsumer, val gameService: Game
 
     var currentQuestion: Question? = null
 
+
     @GetMapping("/")
     fun blog(model: Model): String {
         return blog(null, model)
     }
 
-    @GetMapping("/{answer}")
+    companion object {
+        var results: String? = null
+    }
+
+    @GetMapping("/answers/{answer}")
     fun blog(@PathVariable answer: String?, model: Model): String {
+        if (HtmlController.results != null) {
+            model["results"] = HtmlController.results!!
+            return "blog"
+        }
         if (answer != null && currentQuestion != null) {
             gameService.answerQuestion(Answer(answer, currentQuestion!!.id))
         }
